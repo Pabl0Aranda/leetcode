@@ -17,11 +17,40 @@ This repository is designed to:
 The repository is organized as follows:
 
 ```
-leetcode-solutions-collection/
-|-- ProblemName1.py
-|-- ProblemName2.py
-|-- ...
-|-- README.md
+leetcode/
+├── README.md
+├── .gitignore
+├── utils/                  # Functions and helpers
+│   └── graph_utils.py      # BFS, DFS genérics
+│   └── binary_tree.py
+├── problems/
+│   ├── arrays/
+│   │   ├── two_sum.py
+│   │   ├── best_time_to_buy_sell_stock.py
+|   |   └── ...
+│   ├── strings/
+│   │   ├── longest_palindromic_substring.py
+|   |   └── ...
+│   ├── linked_lists/
+│   │   ├── reverse_linked_list.py
+|   |   └── ...
+│   ├── trees/
+│   │   ├── maximum_depth_binary_tree.py
+|   |   └── ...
+│   ├── graphs/
+│   │   ├── number_of_islands.py
+|   |   └── ...
+│   ├── dynamic_programming/
+│   │   ├── climbing_stairs.py
+|   |   └── ...
+│   └── math/
+│       ├── is_prime.py
+|   |   └── ...
+├── tests/
+│   ├── test_two_sum.py
+│   ├── test_climbing_stairs.py
+│   └── ...
+└── requirements.txt
 ```
 
 Each file is named according to the problem it solves, with clear comments and structured code.
