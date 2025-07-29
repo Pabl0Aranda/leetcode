@@ -22,7 +22,8 @@ leetcode/
 ├── .gitignore
 ├── utils/                  # Functions and helpers
 │   ├── graph_utils.py      # BFS, DFS genérics
-│   └── binary_tree.py
+│   ├── tree_utils.py
+│   └── ...
 ├── problems/
 │   ├── arrays/
 │   │   ├── easy/
