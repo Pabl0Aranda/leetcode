@@ -22,7 +22,8 @@ leetcode/
 ├── .gitignore
 ├── utils/                  # Functions and helpers
 │   ├── graph_utils.py      # BFS, DFS genérics
-│   └── binary_tree.py
+│   ├── tree_utils.py
+│   └── ...
 ├── problems/
 │   ├── arrays/
 │   │   ├── easy/
@@ -90,7 +91,7 @@ Each file is named according to the problem it solves, with clear comments and s
 ## How to Use This Repository
 1. Clone or download this repository to your local machine:
    ```bash
-   git clone https://github.com/your-username/leetcode-solutions-collection.git
+   git clone https://github.com/Pabl0Aranda/leetcode.git
    ```
 2. Browse through the solutions and pick the problem you’re interested in.
 3. Read the code, comments, and explanations to understand the solution.
@@ -101,45 +102,41 @@ Here’s an example of what you’ll find in this repository:
 **Problem**: Find the median of two sorted arrays.
 
 ```python
-class Solution(object):
-    def findMedianSortedArrays(self, nums1, nums2):
-        """
-        :type nums1: List[int]
-        :type nums2: List[int]
-        :rtype: float
-        """
-        # Merge the two arrays into one sorted array
-        merged = []
-        i, j = 0, 0
-        
-        while i < len(nums1) and j < len(nums2):
-            if nums1[i] < nums2[j]:
-                merged.append(nums1[i])
-                i += 1
+def findMedianSortedArrays(nums1: list[int], nums2: list[int]) -> float:
+    if len(nums1) > len(nums2):
+        nums1, nums2 = nums2, nums1
+
+    x, y = len(nums1), len(nums2)
+    low, high = 0, x
+
+    while low <= high:
+        partitionX = (low + high) // 2
+        partitionY = (x + y + 1) // 2 - partitionX
+
+        maxLeftX = float('-inf') if partitionX == 0 else nums1[partitionX - 1]
+        minRightX = float('inf') if partitionX == x else nums1[partitionX]
+
+        maxLeftY = float('-inf') if partitionY == 0 else nums2[partitionY - 1]
+        minRightY = float('inf') if partitionY == y else nums2[partitionY]
+
+        if maxLeftX <= minRightY and maxLeftY <= minRightX:
+            if (x + y) % 2 == 0:
+                return (max(maxLeftX, maxLeftY) + min(minRightX, minRightY)) / 2
             else:
-                merged.append(nums2[j])
-                j += 1
-        
-        # Add the remaining elements from either array
-        while i < len(nums1):
-            merged.append(nums1[i])
-            i += 1
-        while j < len(nums2):
-            merged.append(nums2[j])
-            j += 1
-
-        # Find the median of the merged sorted array
-        n = len(merged)
-        if n % 2 == 1:
-            return float(merged[n // 2])
+                return float(max(maxLeftX, maxLeftY))
+        elif maxLeftX > minRightY:
+            high = partitionX - 1
         else:
-            return (merged[n // 2 - 1] + merged[n // 2]) / 2.0
+            low = partitionX + 1
 
-# Example usage
-nums1 = [1, 3]
-nums2 = [2]
-solution = Solution()
-print(solution.findMedianSortedArrays(nums1, nums2))  # Output: 2.0
+    raise ValueError("Input arrays are not sorted or invalid input.")
+
+
+print(findMedianSortedArrays([1, 3], [2]))         # ➜ 2.0
+print(findMedianSortedArrays([1, 2], [3, 4]))      # ➜ 2.5
+print(findMedianSortedArrays([0, 0], [0, 0]))      # ➜ 0.0
+print(findMedianSortedArrays([], [1]))             # ➜ 1.0
+print(findMedianSortedArrays([2], []))             # ➜ 2.0
 ```
 
 ## Contributing
